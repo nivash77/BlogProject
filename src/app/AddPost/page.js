@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 export default function AddPost() {
@@ -102,13 +103,19 @@ export default function AddPost() {
         <small className="text-gray-500 italic">Choose the date for your post.</small>
       </div>
   
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-evenly mb-7">
         <button
           type="submit"
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           Add Post
         </button>
+        <Link href='/'><button
+          
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Cancel
+        </button></Link>
       </div>
     </form>
   </div>

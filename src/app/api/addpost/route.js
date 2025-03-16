@@ -1,4 +1,4 @@
-// app/api/posts/route.js
+
 import { ConnectMongodb } from "../../../utils/ConnectMongodb";
 import PostModel from "../../../../Model/PostModel";
 

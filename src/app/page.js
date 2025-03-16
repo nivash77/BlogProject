@@ -80,7 +80,7 @@ export default function Home() {
         <SearchBar onSearch={handleSearch} />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-9 px-4">
         {filteredPosts.map((post) => (
           <Link href={"/post/" + post._id} key={post._id}>
             <div
@@ -101,6 +101,8 @@ export default function Home() {
             </div>
           </Link>
         ))}
+      </div>
+      <div className=" bg-white shadow-md p-4 flex justify-center mb-14">
         {isLoggedIn() ? (
           <Link href="/AddPost" className="w-full sm:w-1/2 md:w-1/3 h-12 flex items-center justify-center bg-green-500 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-green-500">
             <span className="mr-2">+</span> Add Post

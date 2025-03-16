@@ -5,8 +5,6 @@ export async function POST(req) {
   try {
     await ConnectMongodb();
     const { username, email, password, DOB } = await req.json();
-
-    // Check for existing username or email
     const existingUser = await addUserModel.findOne({
       $or: [{ username }, { email }]
     });
@@ -23,8 +21,6 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-
-    // Rest of your existing code...
     const newUser = new addUserModel({ username, email, password, DOB });
     const saveuser = await newUser.save();
     return Response.json({ success: true, data: saveuser });

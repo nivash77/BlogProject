@@ -26,6 +26,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+         <style>
+          {`
+            body::-webkit-scrollbar {
+              display: none;
+            }
+            body {
+              -ms-overflow-style: none; 
+              scrollbar-width: none;
+            }
+          `}
+        </style>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         
         <Navbar/>

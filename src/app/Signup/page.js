@@ -24,7 +24,6 @@ export default function SignUp() {
         if (!response.ok) {
           throw new Error(data.message || 'Failed to create account');
         }
-        //localStorage.setItem("username",username);
         router.push('/Login', { replace: true });
       } catch (error) {
         setError(error.message);
