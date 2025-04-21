@@ -31,8 +31,8 @@ export default function AddPost() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f9f9f9] px-6 py-10">
-      <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-xl p-10">
+    <div className="min-h-screen bg-white/30 backdrop-blur-sm  px-6 py-10">
+      <div className="max-w-4xl mx-auto bg-white/30 backdrop-blur-md  shadow-xl rounded-xl p-10">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-6 text-center">
           Write a New Blog Post
         </h1>
