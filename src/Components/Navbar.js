@@ -68,14 +68,14 @@ export const Navbar = () => {
         </div>
       </header>
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-orange-500 w-full fixed top-0 z-10 pt-16">
+        <div className="md:hidden bg-white/30 backdrop-blur-sm w-full fixed top-0 z-10 pt-16">
           <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navLinks.map((link, index) => (
               <Link
                 key={index}
                 href={link.path}
                 onClick={() => handleLinkClick(link.path)}
-                className={`text-white hover:text-gray-100 transition hover:font-bold  duration-300 text-center border-b-2 ${
+                className={`text-gray-700 hover:text-gray-200 transition hover:font-bold  duration-300 text-center border-b-2 ${
                   activeSection === link.path
                     ? "border-white"
                     : "border-transparent"

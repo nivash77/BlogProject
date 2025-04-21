@@ -12,7 +12,6 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -41,6 +40,7 @@ export default function Home() {
         post.short_description.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredPosts(filtered);
+    console.log(searchQuery);
   };
 
   if (loading) {
@@ -49,7 +49,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-8 text-center">
           <h2 className="text-4xl font-bold text-white">Loading...</h2>
         </div>
-     
+       
     );
   }
 

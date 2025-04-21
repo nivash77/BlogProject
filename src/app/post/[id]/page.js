@@ -56,7 +56,8 @@ const PostDetails = ({ params }) => {
         throw new Error(`Failed to add comment`);
       }
 
-      const data = await response.json();
+       await response.json();
+
       setPost(prevPost => ({
         ...prevPost,
         commands: [...(prevPost.commands || []), { username: username, command: newComment }],
