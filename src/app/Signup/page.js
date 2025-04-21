@@ -31,8 +31,8 @@ export default function SignUp() {
     }; 
   return (
     <>
-      <div className="flex items-center justify-center p-11 bg-gray-100">
-        <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
+      <div className="flex items-center justify-center p-11">
+        <div className="w-full max-w-md p-8 space-y-4 bg-white/30 backdrop-blur-md rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-center text-gray-800">
             SignUp
           </h2>
@@ -48,7 +48,7 @@ export default function SignUp() {
             <div>
               <label
                 htmlFor="username"
-                className="block text-sm font-medium text-gray-600"
+                className="block text-sm font-medium text-gray-800"
               >
                 UserName
               </label>
@@ -65,7 +65,7 @@ export default function SignUp() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-600"
+                className="block text-sm font-medium text-gray-800"
               >
                 Email
               </label>
@@ -82,7 +82,7 @@ export default function SignUp() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-600"
+                className="block text-sm font-medium text-gray-800"
               >
                 Password
               </label>
@@ -97,7 +97,7 @@ export default function SignUp() {
               />
             </div>
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2 uppercase tracking-wide">
+              <label className="block text-gray-800 text-sm font-bold mb-2 uppercase tracking-wide">
                 DOB:
               </label>
               <input
@@ -107,7 +107,7 @@ export default function SignUp() {
                 placeholder="Select date"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
-              <small className="text-gray-500 italic">
+              <small className="text-gray-800 italic">
                 Choose the date for your post.
               </small>
             </div>

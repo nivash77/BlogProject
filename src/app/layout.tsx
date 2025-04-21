@@ -1,9 +1,11 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ChakraProvider } from '@chakra-ui/react';
 import {Navbar} from "@/Components/Navbar";
 import {Footer} from '../Components/Footer'
+import ClientLayout from '../Components/ClientLayout';
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,10 +26,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+ 
   return (
     <html lang="en">
       <head>
-         <style>
+         {/* <style>
           {`
             body::-webkit-scrollbar {
               display: none;
@@ -37,13 +40,17 @@ export default function RootLayout({
               scrollbar-width: none;
             }
           `}
-        </style>
+        </style> */}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        
-        <Navbar/>
-        {children}
-        <Footer/>
+      <ClientLayout>
+            <Navbar />
+            <main className="pt-20 pb-6">
+              {children}
+            </main>
+            <Footer />
+      </ClientLayout>
+       
       </body>
     </html>
   );

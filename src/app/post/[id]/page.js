@@ -77,7 +77,7 @@ const PostDetails = ({ params }) => {
   }
   return (
     <div className="container mx-auto p-4 mb-16 max-w-4xl">
-      <div className="bg-white rounded-xl shadow-lg mb-6 border border-gray-100">
+      <div className="bg-white/30 backdrop-blur-md rounded-xl shadow-lg mb-6 border border-gray-100">
         <div className="flex flex-col md:flex-row gap-6 p-6">
           <div className="md:w-1/2">
             <img
@@ -92,23 +92,23 @@ const PostDetails = ({ params }) => {
                 <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                   <span className="text-blue-600 text-sm">👤</span>
                 </div>
-                <span className="text-gray-600 font-medium">{post.author}</span>
+                <span className="text-gray-900 font-medium">{post.author}</span>
               </div>
-              <p className="text-sm text-gray-500">{new Date(post.date).toLocaleDateString()}</p>
+              <p className="text-sm text-gray-900">{new Date(post.date).toLocaleDateString()}</p>
             </div>
 
-            <h1 className="text-3xl font-bold mb-4 text-gray-800">{post.title}</h1>
+            <h1 className="text-3xl font-bold mb-4 text-gray-900">{post.title}</h1>
             
-            <p className="text-gray-600 leading-relaxed text-justify">
+            <p className="text-gray-800 leading-relaxed text-justify">
               {post.desc}
             </p>
           </div>
         </div>
       </div>
       {post.commands && post.commands.length > 0 ? (
-        <div className="bg-white rounded-xl shadow-lg border border-gray-100">
+        <div className="bg-white/30 backdrop-blur-md rounded-xl shadow-lg border border-gray-100">
           <div className="p-6 border-b">
-            <h2 className="text-xl font-semibold text-gray-800">
+            <h2 className="text-xl font-semibold text-gray-900">
               Comments ({post.commands.length})
             </h2>
           </div>
@@ -116,7 +116,7 @@ const PostDetails = ({ params }) => {
             {post.commands.map((command, index) => (
               <div 
                 key={index}
-                className="p-4 border-b last:border-0 hover:bg-gray-50 transition-colors"
+                className="p-4 border-b last:border-0 hover:bg-white/30 backdrop-blur-xl transition-colors"
               >
                 <div className="flex items-start gap-3">
                   <div className="flex-shrink-0">
@@ -126,7 +126,7 @@ const PostDetails = ({ params }) => {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-semibold text-sm text-gray-700">
+                      <span className="font-semibold text-sm text-gray-900">
                         {command.username}
                       </span>
                     </div>
@@ -140,7 +140,7 @@ const PostDetails = ({ params }) => {
             <div className="p-4 border-t">
               <div className="flex items-center gap-3">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center">
                     <span className="text-blue-600 text-sm">👤</span>
                   </div>
                 </div>
@@ -150,12 +150,12 @@ const PostDetails = ({ params }) => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Add a comment..."
-                    className="w-full py-2 px-4 rounded-full bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:bg-white transition-all"
+                    className="w-full py-2 px-4 rounded-full bg-white/30 backdrop-blur-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-300  transition-all"
                   />
                   <button
                     type="submit"
                     onClick={handleAddComment}
-                    className="absolute right-2 top-1.5 px-3 py-1 bg-blue-500 text-white rounded-full text-sm hover:bg-blue-600 transition-colors"
+                    className="absolute right-2 top-1.5 px-3 py-1 bg-blue-500 text-gray-800 rounded-full text-sm hover:bg-blue-600 transition-colors"
                   >
                     Post
                   </button>
@@ -165,12 +165,12 @@ const PostDetails = ({ params }) => {
           )}
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-lg border border-gray-100">
+        <div className="bg-white/30 backdrop-blur-md rounded-xl shadow-lg border border-gray-100">
           {username ? (
             <div className="p-6">
               <div className="flex items-center gap-3">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center">
                     <span className="text-blue-600 text-sm">👤</span>
                   </div>
                 </div>
@@ -180,7 +180,7 @@ const PostDetails = ({ params }) => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     placeholder="Add a comment..."
-                    className="w-full py-2 px-4 rounded-full bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:bg-white transition-all"
+                    className="w-full py-2 px-4 rounded-full bg-white/30 backdrop-blur-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-300  transition-all"
                   />
                   <button
                     type="submit"

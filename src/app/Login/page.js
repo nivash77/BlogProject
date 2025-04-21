@@ -30,7 +30,7 @@ export default function Login() {
       if (!response.ok) {
         throw new Error(data.message || 'Failed to login');
       }
-      localStorage.setItem("username", username);
+      localStorage.setItem("username",username);
       router.push('/', { replace: true });
     } catch (error) {
       setError(error.message);
@@ -45,8 +45,8 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex items-center justify-center p-11 bg-gray-100">
-        <div className="w-full max-w-md p-8 space-y-4 bg-white rounded-lg shadow-md">
+      <div className="flex items-center justify-center p-11 ">
+        <div className="w-full max-w-md p-8 space-y-4  rounded-lg shadow-md bg-white/30 backdrop-blur-md">
           {isLoggedIn() ? (
             <div>
               <h2 className="text-2xl font-bold text-center text-gray-800">You are logged in</h2>
@@ -57,7 +57,7 @@ export default function Login() {
               >
                 Logout
               </button>
-              <Link href="/" className="text-indigo-500 hover:underline">
+              <Link href="/" className="text-blue-500 hover:underline">
                 Back to Home
               </Link>
             </div>
@@ -71,7 +71,7 @@ export default function Login() {
               )}
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="username" className="block text-sm font-medium text-gray-900">
                     UserName
                   </label>
                   <input
@@ -84,7 +84,7 @@ export default function Login() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-600">
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-900">
                     Password
                   </label>
                   <input

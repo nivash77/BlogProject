@@ -20,12 +20,12 @@ export const SearchBar = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleSearch}
         placeholder="Search posts..."
-        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+        className="search-input w-full px-4 py-2 text-black bg-white placeholder:text-gray-300  rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 shadow-sm"
       />
       <button
         type="button"
         onClick={handleSearch}
-        className="px-4 py-2 bg-blue-500 text-white rounded-md ml-2 hover:bg-blue-700 focus:outline-none focus:ring-blue-500"
+        className="px-4 py-2 bg-teal-500 text-white rounded-md ml-2 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
       >
         Search
       </button>

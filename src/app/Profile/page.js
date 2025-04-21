@@ -83,8 +83,8 @@ const ProfilePage = () => {
   if (!username) {
     return (
       <div className="container mx-auto p-6 text-center">
-        <h2 className="text-2xl font-bold mb-4">Please login to view your profile</h2>
-        <Link href="/login" className="text-blue-500 hover:underline">
+        <h2 className="text-2xl font-bold mb-4 text-gray-300">Please login to view your profile</h2>
+        <Link href="/Login" className="text-blue-100 hover:underline">
           Go to Login Page
         </Link>
       </div>
@@ -93,7 +93,7 @@ const ProfilePage = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <div className="bg-white shadow-md rounded-lg p-6 mb-8">
+      <div className="bg-white/30 backdrop-blur-sm shadow-md rounded-lg p-6 mb-8">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold">Profile</h2>
           <button
@@ -113,7 +113,7 @@ const ProfilePage = () => {
                 name="username"
                 value={profile?.username || ''}
                 readOnly
-                className="w-full mt-1 p-2 border border-gray-300 rounded-md bg-gray-100"
+                className="w-full mt-1 p-2 border rounded-md bg-white/30 backdrop-blur-sm"
               />
             </div>
             <div>
@@ -160,14 +160,14 @@ const ProfilePage = () => {
           </div>
         )}
       </div>
-      <div className="bg-white shadow-md rounded-lg p-6 mb-14">
+      <div className="bg-white/30 backdrop-blur-sm shadow-md rounded-lg p-6 mb-14">
         <h2 className="text-2xl font-bold mb-4">Your Posts</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {posts.length > 0 ? (
             posts.map((post) => (
               <div
                 key={post._id}
-                className="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+                className="bg-white/30 backdrop-blur-sm  rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
               >
                 <Link href={`/edit-post/${post._id}`}>
                   <div>
