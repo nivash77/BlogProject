@@ -31,7 +31,7 @@ export default function About() {
             <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-orange-500"></span>
           </h1>
           <p className="text-lg text-gray-700 text-center mx-auto max-w-3xl">
-            Welcome to our blog! We're passionate about sharing insights and stories
+            Welcome to our blog! We are passionate about sharing insights and stories
             that inspire and inform. Our mission is to provide high-quality content
             that helps readers grow both personally and professionally.
           </p>

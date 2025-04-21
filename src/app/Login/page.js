@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
@@ -105,7 +105,7 @@ export default function Login() {
               </form>
               <div className="text-center mt-4">
                 <span className="text-sm text-gray-600">
-                  Don't have an account?{" "}
+                  Do not have an account?{" "}
                   <Link href='/Signup' className="text-indigo-500 hover:underline">
                     Signup
                   </Link>
