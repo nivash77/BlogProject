@@ -1,9 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { SearchBar } from '../components/SearchBar';
 import { useEffect, useState } from 'react';
 import { isLoggedIn } from '../utils/auth';
 import { Plus } from 'lucide-react';
+import {SearchBar} from '../Components/SearchBar'
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
