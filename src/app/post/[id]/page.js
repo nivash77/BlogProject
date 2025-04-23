@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
-import{toast} from 'react-toastify';
+
 const PostDetails = ({ params }) => {
   const [postId, setPostId] = useState(null);
   const [post, setPost] = useState(null);
