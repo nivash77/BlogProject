@@ -26,7 +26,7 @@ export default function EditPostPage({ params }) {
     if (postId) {
       const fetchPostById = async () => {
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}`);
+          const response = await fetch(`/api/post/${postId}`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }

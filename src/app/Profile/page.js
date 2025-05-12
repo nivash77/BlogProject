@@ -32,7 +32,7 @@ const ProfilePage = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/getUser?username=${username}`);
+      const response = await fetch(`/api/getUser?username=${username}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -46,7 +46,7 @@ const ProfilePage = () => {
 
   const fetchUserPosts = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/userPost?username=${username}`);
+      const response = await fetch(`/api/userPost?username=${username}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

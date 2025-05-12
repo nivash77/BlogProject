@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { isLoggedIn } from '../utils/auth';
 import { Plus } from 'lucide-react';
 import {SearchBar} from '../Components/SearchBar'
-
+import { ConnectMongodb } from '../utils/ConnectMongodb';
+import PostModel from '../../Model/PostModel';
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -15,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/posts');
+        const response = await fetch('api/posts');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

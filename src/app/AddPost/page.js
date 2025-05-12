@@ -14,7 +14,7 @@ export default function AddPost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/addpost', {
+      const response = await fetch( '/api/addpost', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title, desc, img, author, date }),

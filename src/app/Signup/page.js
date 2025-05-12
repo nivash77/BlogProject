@@ -15,7 +15,7 @@ export default function SignUp() {
         if (!DOB || !username || !email || !password) {
           return setError('All fields are required');
         }
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/addUser', {
+        const response = await fetch( '/api/addUser', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, email, password, DOB }),

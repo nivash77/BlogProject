@@ -6,7 +6,6 @@ import { Menu, X, User } from "lucide-react";
 import { isLoggedIn, logout } from "../utils/auth";
 
 export const Navbar = () => {
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
@@ -58,7 +57,7 @@ export const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 w-full z-50 bg-white/30 backdrop-blur-sm shadow-lg rounded-b-md transition-all duration-300`}
+        className={`fixed top-0 w-full z-50 bg-white/30 backdrop-blur-sm shadow-lg rounded-b-md  transition-all duration-300`}
       >
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/">

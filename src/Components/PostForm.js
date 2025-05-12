@@ -1,5 +1,5 @@
 'use client';
-// components/PostForm.js
+
 import React from 'react';
 
 const PostForm = ({ isOpen, onClose, handleAddPost }) => {

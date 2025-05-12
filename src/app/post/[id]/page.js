@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
-
 const PostDetails = ({ params }) => {
   const [postId, setPostId] = useState(null);
   const [post, setPost] = useState(null);
@@ -25,7 +24,7 @@ const PostDetails = ({ params }) => {
       if (!resolvedParams.id) return;
 
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${resolvedParams.id}`);
+        const response = await fetch(`/api/post/${resolvedParams.id}`);
         if (!response.ok) {
           throw new Error(`Failed to fetch post with id ${resolvedParams.id}`);
         }
@@ -54,7 +53,7 @@ const PostDetails = ({ params }) => {
     }
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/addCommand', {
+      const response = await fetch( '/api/addCommand', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ postId, username, command: newComment }),
@@ -89,7 +88,7 @@ const PostDetails = ({ params }) => {
     }
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/updateCommand', {
+      const response = await fetch( '/api/updateCommand', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: postId, username, command: editedComment }),
@@ -120,7 +119,7 @@ const PostDetails = ({ params }) => {
 
   const handleDeleteComment = async (index) => {
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/deleteCommand', {
+      const response = await fetch('/api/deleteCommand', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: postId, username, command: post.commands[index].command }),
