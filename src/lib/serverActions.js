@@ -12,7 +12,8 @@ export async function getPosts() {
 
   const plainPosts = posts.map((post, index) => {
     const shortDesc = post.short_description || (post.desc ? post.desc.substring(0, 60) + (post.desc.length > 60 ? "..." : "") : "");
-
+     let indexValue = index + 1;
+    console.log("indexValue", indexValue);
     let dateValue;
     if (post.date instanceof Date) {
       dateValue = post.date.toISOString();
