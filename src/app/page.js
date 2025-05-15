@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react';
 import { isLoggedIn } from '../utils/auth';
 import { Plus } from 'lucide-react';
 import {SearchBar} from '../Components/SearchBar'
-import { ConnectMongodb } from '../utils/ConnectMongodb';
-import PostModel from '../../Model/PostModel';
+
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
