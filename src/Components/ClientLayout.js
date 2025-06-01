@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 
 export default function ClientLayout({ children }) {
   const [backgroundImage, setBackgroundImage] = useState('');
-
-  // Array of background images (replace with your own URLs or local assets)
   const backgroundImages = [
     'https://ik.imagekit.io/qd01l9yk3p/ProjectMern%20image/seaimage.jpg?updatedAt=1745261187018',
     
@@ -12,8 +10,6 @@ export default function ClientLayout({ children }) {
      'https://ik.imagekit.io/qd01l9yk3p/ProjectMern%20image/seasea.png?updatedAt=1745261577330',
     
   ];
-
-  // Select random background image on mount
   useEffect(() => {
     const randomImage = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
     setBackgroundImage(randomImage);

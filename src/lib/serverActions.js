@@ -4,15 +4,13 @@
 import {ConnectMongodb } from "../utils/ConnectMongodb";
 import PostModel from "../../Model/PostModel";
 import mongoose from "mongoose";
-
-// Fetch all posts
 export async function getPosts() {
   await ConnectMongodb();
   const posts = await PostModel.find({}).lean();
 
   const plainPosts = posts.map((post, index) => {
-    const shortDesc = post.short_description || (post.desc ? post.desc.substring(0, 60) + (post.desc.length > 60 ? "..." : "") : "");
-     let indexValue = index + 1;
+    const shortDesc = post.short_description || (post.desc ? post.desc.substring(0, 60) + (post.desc.length > 60 ? "..." : "") : "") ;
+    let indexValue = index + 1;
     console.log("indexValue", indexValue);
     let dateValue;
     if (post.date instanceof Date) {

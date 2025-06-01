@@ -8,7 +8,7 @@ export const ConnectMongodb = async () => {
       serverSelectionTimeoutMS: 5000,
       connectTimeoutMS: 10000
     });
-    console.log('✅ MongoDB connected');
+    console.log('MongoDB connected');
   } catch (error) {
     console.error('MongoDB connection error:', error);
     throw error;

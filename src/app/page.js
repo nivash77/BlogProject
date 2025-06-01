@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { isLoggedIn } from '../utils/auth';
 import { Plus } from 'lucide-react';
 import {SearchBar} from '../Components/SearchBar'
-
+import { IoEye } from "react-icons/io5";
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
@@ -102,6 +102,10 @@ export default function Home() {
                     <p className="text-gray-600 line-clamp-3">
                       {post.short_description}
                     </p>
+                  <h2 className='flex justify-end items-center gap-1 text-gray-600 text-sm'>
+  <IoEye className="text-xl" />
+  {post.views}
+</h2>
                   </div>
                 </div>
               </Link>
