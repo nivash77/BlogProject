@@ -9,7 +9,6 @@ A modern blog writing platform built using Next.js with a serverless architectur
 -  Write and publish blogs with a rich text editor
 -  User authentication 
 -  View, search, and filter blogs
--  Upload images (via Cloudinary/S3)
 -  Serverless API routes for backend logic
 -  Fast and optimized performance with ISR/SSG
 -  SEO-friendly URLs and metadata
@@ -20,12 +19,11 @@ A modern blog writing platform built using Next.js with a serverless architectur
 | Layer         | Technology               |
 |---------------|---------------------------|
 | Frontend      | Next.js (React)           |
-| Styling       | Tailwind CSS / CSS Modules|
+| Styling       | Tailwind CSS              |
 | Backend       | Next.js API Routes        |
-| Database      | MongoDB / Firebase / Supabase |
+| Database      | MongoDB                   |
 | Auth          | NextAuth.js               |
 | Hosting       | Vercel (Serverless)       |
-| Image Hosting | Cloudinary / S3           |
 
 
 
