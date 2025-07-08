@@ -1,38 +1,74 @@
 'use client';
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function AddPost() {
   const router = useRouter();
-  const [title, setTitle] = React.useState('');
-  const [desc, setDesc] = React.useState('');
-  const [img, setImg] = React.useState('');
-  const [author, setAuthor] = React.useState('');
-  const [date, setDate] = React.useState('');
+
+  const [title, setTitle] = useState('');
+  const [desc, setDesc] = useState('');
+  const [img, setImg] = useState('');
+  const [author, setAuthor] = useState('');
+  const [date, setDate] = useState('');
+  const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [isOtherCategory, setIsOtherCategory] = useState(false);
+  const [newCategory, setNewCategory] = useState('');
+
+ useEffect(() => {
+  fetch('/api/Categories')
+    .then((res) => res.json())
+    .then((data) => {
+      if (Array.isArray(data.categories)) {
+        setCategories(data.categories);
+      } else {
+        console.warn("Expected categories array but got:", data);
+        setCategories([]);
+      }
+    })
+    .catch((err) => {
+      console.error('Error fetching categories:', err);
+      setCategories([]);
+    });
+}, []);
+
+
+  const handleCategoryChange = (e) => {
+    const selected = e.target.value;
+    if (selected === 'Other') {
+      setIsOtherCategory(true);
+      setCategory('');
+    } else {
+      setIsOtherCategory(false);
+      setCategory(selected);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const selectedCategory = isOtherCategory ? newCategory : category;
+
     try {
-      const response = await fetch( '/api/addpost', {
+      const response = await fetch('/api/addpost', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, desc, img, author, date }),
+        body: JSON.stringify({ title, desc, img, author, date, category: selectedCategory }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to create post: ${response.status}`);
-      }
+      if (!response.ok) throw new Error('Failed to create post');
 
-      router.push('/', { replace: true });
+      router.push('/');
     } catch (error) {
       console.error('Error creating post:', error);
     }
   };
 
   return (
-    <div className="min-h-screen bg-white/30 backdrop-blur-sm  px-6 py-10">
-      <div className="max-w-4xl mx-auto bg-white/30 backdrop-blur-md  shadow-xl rounded-xl p-10">
+    <div className="min-h-screen bg-white/30 backdrop-blur-sm px-6 py-10">
+      <div className="max-w-4xl mx-auto bg-white/30 backdrop-blur-md shadow-xl rounded-xl p-10">
         <h1 className="text-4xl font-extrabold text-gray-900 mb-6 text-center">
           Write a New Blog Post
         </h1>
@@ -41,7 +77,7 @@ export default function AddPost() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title (e.g., My Journey into Web Development)"
+            placeholder="Title"
             className="w-full text-3xl font-semibold placeholder-gray-400 text-gray-800 bg-transparent border-none focus:outline-none focus:ring-0"
           />
 
@@ -60,8 +96,7 @@ export default function AddPost() {
                 type="text"
                 value={img}
                 onChange={(e) => setImg(e.target.value)}
-                placeholder="https://example.com/image.jpg"
-                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded-md border border-gray-300"
               />
             </div>
             <div>
@@ -70,8 +105,7 @@ export default function AddPost() {
                 type="text"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                placeholder="John Doe"
-                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded-md border border-gray-300"
               />
             </div>
             <div>
@@ -80,8 +114,32 @@ export default function AddPost() {
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded-md border border-gray-300"
               />
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700 block mb-1">Category</label>
+              <select
+                onChange={handleCategoryChange}
+                className="w-full px-4 py-2 rounded-md border border-gray-300"
+              >
+                <option value="">Select category</option>
+                {categories.map((cat, idx) => (
+                  <option key={idx} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+                <option value="Other">Other</option>
+              </select>
+              {isOtherCategory && (
+                <input
+                  type="text"
+                  value={newCategory}
+                  onChange={(e) => setNewCategory(e.target.value)}
+                  placeholder="Enter new category"
+                  className="mt-2 w-full px-4 py-2 rounded-md border border-gray-300"
+                />
+              )}
             </div>
           </div>
 

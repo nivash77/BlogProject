@@ -149,6 +149,7 @@ const PostDetails = ({ params }) => {
             <h1 className="text-3xl font-bold mb-4 text-gray-900">{post.title}</h1>
             <p className="text-gray-800 leading-relaxed text-justify">{post.desc}</p>
             <p className="mt-4 text-sm text-gray-700">👁️ Views: <b>{post.views || 0}</b></p>
+            <p className="mt-4 text-sm text-gray-700">Category: <b>{post.category || 0}</b></p>
           </div>
         </div>
       </div>

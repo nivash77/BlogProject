@@ -1,14 +1,14 @@
-
 import { ConnectMongodb } from "../../../utils/ConnectMongodb";
 import PostModel from "../../../../Model/PostModel";
 
 export async function POST(req) {
   try {
     await ConnectMongodb();
-    const { title, desc, img, commands,author,date } = await req.json();
-    if (!title || !desc || !img) {
+    const { title, desc, img, commands, author, date, category } = await req.json();
+
+    if (!title || !desc || !img || !author || !date || !category) {
       return Response.json(
-        { success: false, message: "Title, description, and image are required" },
+        { success: false, message: "All fields are required" },
         { status: 400 }
       );
     }
@@ -18,16 +18,15 @@ export async function POST(req) {
       desc,
       img,
       commands: commands || [],
-      author:author,
-      date:date
+      author,
+      date,
+      category,
     });
 
     const savedPost = await newPost.save();
 
     return Response.json({ success: true, data: savedPost });
-
   } catch (error) {
-    //console.error("Error saving post:", error);
     return Response.json(
       { success: false, error: error.message },
       { status: 500 }

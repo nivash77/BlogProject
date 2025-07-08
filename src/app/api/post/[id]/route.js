@@ -10,9 +10,9 @@ export async function GET(req,{ params }) {
     const url = new URL(req.url);
     const userId = url.searchParams.get('userId');
 
-    if (!userId) {
-      return NextResponse.json({ error: 'User ID required' }, { status: 400 });
-    }
+    // if (!userId) {
+    //   return NextResponse.json({ error: 'User ID required' }, { status: 400 });
+    // }
 
     const post = await PostModel.findById(id);
 
