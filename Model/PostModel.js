@@ -22,6 +22,7 @@ const PostSchema = new Schema(
       type: String,
       required: true,
     },
+    category: { type: String, required: true },
     commands: {
       type: [
         {
