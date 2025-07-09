@@ -135,8 +135,8 @@ export default function Home() {
                     <h3 className="text-xl font-bold text-gray-800 mb-2 hover:text-teal-500 transition-colors duration-200">
                       {post.title}
                     </h3>
-                    <p className="text-gray-600 line-clamp-3">
-                      {post.short_description}
+                    <p className="text-gray-600 line-clamp-3"
+                      dangerouslySetInnerHTML={ {__html:post.short_description}}>
                     </p>
                     <h2 className="flex justify-end items-center gap-1 text-gray-600 text-sm mt-2">
                       <IoEye className="text-xl" />

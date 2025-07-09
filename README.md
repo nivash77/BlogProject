@@ -1,39 +1,3 @@
- Blog Writing Website (Next.js + Serverless)
-
-A modern blog writing platform built using Next.js with a serverless architecture. Users can create, edit, publish, and read blog posts with a fast, SEO-friendly interface.
-
----
-
- Features
-
--  Write and publish blogs with a rich text editor
--  User authentication 
--  View, search, and filter based on category blogs
--  Serverless API routes for backend logic
--  Fast and optimized performance with ISR/SSG
--  SEO-friendly URLs and metadata
--  Responsive and mobile-first design
-
- 🛠 Tech Stack
-
-| Layer         | Technology               |
-|---------------|---------------------------|
-| Frontend      | Next.js (React)           |
-| Styling       | Tailwind CSS              |
-| Backend       | Next.js API Routes        |
-| Database      | MongoDB                   |
-| Auth          | NextAuth.js               |
-| Hosting       | Vercel (Serverless)       |
-
-
-
-
-
-
-
-
-
-
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -50,6 +14,7 @@ pnpm dev
 bun dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

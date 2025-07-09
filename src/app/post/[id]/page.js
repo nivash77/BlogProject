@@ -147,7 +147,7 @@ const PostDetails = ({ params }) => {
               <p className="text-sm text-gray-900">{new Date(post.date).toLocaleDateString()}</p>
             </div>
             <h1 className="text-3xl font-bold mb-4 text-gray-900">{post.title}</h1>
-            <p className="text-gray-800 leading-relaxed text-justify">{post.desc}</p>
+            <p className="text-gray-800 leading-relaxed text-justify"  dangerouslySetInnerHTML={{__html:post.desc}} ></p>
             <p className="mt-4 text-sm text-gray-700">👁️ Views: <b>{post.views || 0}</b></p>
             <p className="mt-4 text-sm text-gray-700">Category: <b>{post.category || 0}</b></p>
           </div>
