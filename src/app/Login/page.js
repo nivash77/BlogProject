@@ -19,7 +19,7 @@ export default function Login() {
         return setError('Username and password are required');
       }
 
-      const response = await fetch('/api/checkUser', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/checkUser`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),

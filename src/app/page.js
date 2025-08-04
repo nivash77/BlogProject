@@ -1,21 +1,21 @@
-'use client';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { isLoggedIn } from '../utils/auth';
-import { Plus } from 'lucide-react';
-import { SearchBar } from '../Components/SearchBar';
-import { IoEye } from 'react-icons/io5';
+"use client";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { isLoggedIn } from "../utils/auth";
+import { Plus } from "lucide-react";
+import { SearchBar } from "../Components/SearchBar";
+import { IoEye } from "react-icons/io5";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [categories, setCategories] = useState(['All']);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [categories, setCategories] = useState(["All"]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     fetchCategories();
@@ -27,21 +27,23 @@ export default function Home() {
 
   const fetchCategories = async () => {
     try {
-      const res = await fetch('/api/Categories');
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Categories`);
       const data = await res.json();
       if (Array.isArray(data.categories)) {
-        setCategories(['All', ...data.categories]);
+        setCategories(["All", ...data.categories]);
       }
     } catch (err) {
-      console.error('Failed to fetch categories', err);
+      console.error("Failed to fetch categories", err);
     }
   };
 
   const fetchPosts = async (page, category) => {
     setLoading(true);
     try {
-      const categoryQuery = category !== 'All' ? `&category=${category}` : '';
-      const res = await fetch(`/api/posts?page=${page}${categoryQuery}`);
+      const categoryQuery = category !== "All" ? `&category=${category}` : "";
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/posts?page=${page}${categoryQuery}`
+      );
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       const { posts = [], totalPages = 1 } = await res.json();
       setPosts(posts);
@@ -49,7 +51,7 @@ export default function Home() {
       setTotalPages(totalPages);
       setLoading(false);
     } catch (err) {
-      console.error('Error fetching posts:', err.message);
+      console.error("Error fetching posts:", err.message);
       setError(err.message);
       setLoading(false);
     }
@@ -68,7 +70,7 @@ export default function Home() {
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setCurrentPage(1); // reset to first page on category change
-    setSearchQuery('');
+    setSearchQuery("");
   };
 
   if (loading) {
@@ -123,21 +125,27 @@ export default function Home() {
       <div className="container mx-auto max-w-6xl px-4 mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.isArray(filteredPosts) && filteredPosts.length > 0 ? (
-            filteredPosts.map((post) => (
-              <Link href={`/post/${post._id}`} key={post._id}>
+            filteredPosts.map((post, index) => (
+              <Link href={`/post/${post.id}`} key={post.id}>
                 <div className="bg-white/30 backdrop-blur-md shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
                   <img
                     className="w-full h-48 object-cover object-center rounded-t-lg"
-                    src={post.img || 'https://via.placeholder.com/400x200'}
+                    src={post.img || "https://via.placeholder.com/400x200"}
                     alt={post.title}
                   />
                   <div className="p-6">
                     <h3 className="text-xl font-bold text-gray-800 mb-2 hover:text-teal-500 transition-colors duration-200">
                       {post.title}
                     </h3>
-                    <p className="text-gray-600 line-clamp-3"
-                      dangerouslySetInnerHTML={ {__html:post.short_description}}>
-                    </p>
+                    <p
+                      className="text-gray-600 line-clamp-3"
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          post.desc?.length > 60
+                            ? `${post.desc.substring(0, 60)}...`
+                            : post.desc,
+                      }}
+                    ></p>
                     <h2 className="flex justify-end items-center gap-1 text-gray-600 text-sm mt-2">
                       <IoEye className="text-xl" />
                       {post.views}
@@ -147,7 +155,9 @@ export default function Home() {
               </Link>
             ))
           ) : (
-            <p className="text-white text-center col-span-full">No posts found.</p>
+            <p className="text-white text-center col-span-full">
+              No posts found.
+            </p>
           )}
         </div>
       </div>

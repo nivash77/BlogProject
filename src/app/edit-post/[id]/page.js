@@ -102,7 +102,7 @@ export default function EditPostPage({ params }) {
     const updatedPost = { ...post, category: selectedCategory, desc: editor.getHTML() };
 
     try {
-      const response = await fetch(`/api/updatePost`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/updatePost`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: postId, ...updatedPost }),

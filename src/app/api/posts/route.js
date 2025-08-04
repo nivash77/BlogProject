@@ -19,7 +19,7 @@ import PostModel from "../../../../Model/PostModel";
 export async function GET(req) {
   try {
     await ConnectMongodb();
-
+   console.log("Hi");
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page")) || 1;
     const category = searchParams.get("category");

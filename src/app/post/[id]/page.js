@@ -1,32 +1,30 @@
-'use client';
-import React, { useState, useEffect, use } from 'react';
-import { Edit2, Trash2 } from 'lucide-react';
+"use client";
 
-const PostDetails = ({ params }) => {
-  const resolvedParams = use(params);
-  const postId = resolvedParams.id;
+import React, { useState, useEffect } from "react";
+import { Edit2, Trash2 } from "lucide-react";
+import { useParams } from "next/navigation";
+
+const PostDetails = () => {
+  const { id: postId } = useParams();
 
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [username, setUsername] = useState('');
-  const [newComment, setNewComment] = useState('');
+  const [username, setUsername] = useState("");
+  const [newComment, setNewComment] = useState("");
   const [editingCommentIndex, setEditingCommentIndex] = useState(null);
-  const [editedComment, setEditedComment] = useState('');
+  const [editedComment, setEditedComment] = useState("");
 
-  useEffect(() => {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        setError(null);
-
         const storedUsername = localStorage.getItem('username');
         if (storedUsername) {
           setUsername(storedUsername);
         }
 
         if (!postId) {
-          setError('Post ID missing');
+          setError('Post ID is missing');
           setLoading(false);
           return;
         }
@@ -34,15 +32,16 @@ const PostDetails = ({ params }) => {
         const viewKey = `viewed-${postId}`;
         const hasViewed = localStorage.getItem(viewKey);
 
-        const url = `/api/post/${postId}?userId=${storedUsername || 'anonymous'}&newView=${hasViewed ? 'false' : 'true'}`;
         if (!hasViewed) {
           localStorage.setItem(viewKey, 'true');
         }
 
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/post/${postId}?userId=${storedUsername}&newView=true`;
         const response = await fetch(url);
+
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || 'Failed to fetch post');
+          throw new Error(errorData.message || 'Failed to fetch post');
         }
 
         const data = await response.json();
@@ -54,79 +53,99 @@ const PostDetails = ({ params }) => {
       }
     };
 
+  useEffect(() => {
     fetchPost();
   }, [postId]);
 
   const handleAddComment = async (e) => {
-    e.preventDefault();
-    if (!username) return alert('Please login to add a comment');
-    if (!newComment.trim()) return alert('Comment cannot be empty');
+  e.preventDefault();
+  if (!username) return alert("Please login to add a comment");
+  if (!newComment.trim()) return alert("Comment cannot be empty");
 
-    try {
-      const response = await fetch('/api/addCommand', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ postId, username, command: newComment }),
-      });
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/addCommand`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ postId, username, command: newComment }),
+    });
 
-      if (!response.ok) throw new Error('Failed to add comment');
-      const updatedPost = await response.json();
-      setPost(updatedPost);
-      setNewComment('');
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+    if (!response.ok) throw new Error("Failed to add comment");
+
+    const added = await response.json();
+
+    setPost((prev) => ({
+      ...prev,
+      commands: [...(prev.commands || []), added],
+    }));
+    setNewComment("");
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
 
   const handleEditComment = (index, currentComment) => {
     setEditingCommentIndex(index);
     setEditedComment(currentComment);
   };
 
-  const handleUpdateComment = async (e) => {
-    e.preventDefault();
-    if (!editedComment.trim()) return alert('Comment cannot be empty');
+ const handleUpdateComment = async (e) => {
+  e.preventDefault();
+  if (!editedComment.trim()) return alert("Comment cannot be empty");
 
-    try {
-      const response = await fetch('/api/updateCommand', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: postId, username, command: editedComment, index: editingCommentIndex }),
-      });
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/updateCommand`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: postId, username, command: editedComment, index: editingCommentIndex }),
+    });
 
-      if (!response.ok) throw new Error('Failed to update comment');
-      const updatedPost = await response.json();
-      setPost(updatedPost);
-      setEditingCommentIndex(null);
-      setEditedComment('');
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+    if (!response.ok) throw new Error("Failed to update comment");
+
+    setPost((prev) => {
+      const updatedCommands = [...prev.commands];
+      updatedCommands[editingCommentIndex] = {
+        ...updatedCommands[editingCommentIndex],
+        command: editedComment,
+      };
+      return { ...prev, commands: updatedCommands };
+    });
+
+    setEditingCommentIndex(null);
+    setEditedComment("");
+  } catch (error) {
+    alert(error.message);
+  }
+};
 
   const handleDeleteComment = async (index) => {
-    try {
-      const response = await fetch('/api/deleteCommand', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: postId, username, index }),
-      });
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/deleteCommand`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: postId, commandIndex: index }),
+    });
 
-      if (!response.ok) throw new Error('Failed to delete comment');
-      const updatedPost = await response.json();
-      setPost(updatedPost);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+    if (!response.ok) throw new Error("Failed to delete comment");
+
+    setPost((prev) => {
+      const updatedCommands = prev.commands.filter((_, i) => i !== index);
+      return { ...prev, commands: updatedCommands };
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+
 
   if (loading) return <div className="text-center py-10 text-white text-2xl">Loading...</div>;
   if (error) return <div className="text-red-500 p-4 text-center">{error}</div>;
   if (!post) return <div className="text-white p-4 text-center">Post not found</div>;
 
   return (
-    <div className="container mx-auto p-4 max-w-4xl">
-      {/* Post details */}
+    
+  <div className="container mx-auto p-4 max-w-4xl">
       <div className="bg-white/30 backdrop-blur-md rounded-xl shadow-lg mb-6 border border-gray-100">
         <div className="flex flex-col md:flex-row gap-6 p-6">
           <div className="md:w-1/2">
@@ -147,9 +166,9 @@ const PostDetails = ({ params }) => {
               <p className="text-sm text-gray-900">{new Date(post.date).toLocaleDateString()}</p>
             </div>
             <h1 className="text-3xl font-bold mb-4 text-gray-900">{post.title}</h1>
-            <p className="text-gray-800 leading-relaxed text-justify"  dangerouslySetInnerHTML={{__html:post.desc}} ></p>
+            <p className="text-gray-800 leading-relaxed text-justify" dangerouslySetInnerHTML={{ __html: post.desc }}></p>
             <p className="mt-4 text-sm text-gray-700">👁️ Views: <b>{post.views || 0}</b></p>
-            <p className="mt-4 text-sm text-gray-700">Category: <b>{post.category || 0}</b></p>
+            <p className="mt-4 text-sm text-gray-700">Category: <b>{post.category || 'N/A'}</b></p>
           </div>
         </div>
       </div>
@@ -162,7 +181,6 @@ const PostDetails = ({ params }) => {
           </h2>
         </div>
 
-        {/* Comments List */}
         <div className="max-h-[400px] overflow-y-auto">
           {post.commands?.length > 0 ? (
             post.commands.map((command, index) => (
@@ -232,3 +250,4 @@ const PostDetails = ({ params }) => {
 };
 
 export default PostDetails;
+
