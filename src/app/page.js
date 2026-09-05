@@ -29,8 +29,13 @@ export default function Home() {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/Categories`);
       const data = await res.json();
+
       if (Array.isArray(data.categories)) {
         setCategories(["All", ...data.categories]);
+      } else if (Array.isArray(data)) {
+        setCategories(["All", ...data]);
+      } else {
+        console.warn("Unexpected categories format:", data);
       }
     } catch (err) {
       console.error("Failed to fetch categories", err);
@@ -69,7 +74,7 @@ export default function Home() {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
-    setCurrentPage(1); // reset to first page on category change
+    setCurrentPage(1);
     setSearchQuery("");
   };
 
@@ -92,7 +97,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
       <main className="container mx-auto max-w-6xl px-4 py-16 text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Welcome to Our Blog
@@ -102,12 +106,11 @@ export default function Home() {
         </p>
       </main>
 
-      {/* Category & Search */}
-      <div className="container mx-auto max-w-6xl px-4 mb-6 flex flex-col md:flex-row items-center  gap-4">
+      <div className="container mx-auto max-w-6xl px-4 mb-6 flex flex-col md:flex-row items-center gap-4">
         <select
           value={selectedCategory}
           onChange={(e) => handleCategoryChange(e.target.value)}
-          className="px-4 py-2 rounded bg-white/30 backdrop-blur-md shadow-md text-gray-800 "
+          className="px-4 py-2 rounded bg-white/30 backdrop-blur-md shadow-md text-gray-800"
         >
           {categories.map((cat) => (
             <option key={cat} value={cat}>
@@ -121,11 +124,10 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Posts Grid */}
       <div className="container mx-auto max-w-6xl px-4 mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Array.isArray(filteredPosts) && filteredPosts.length > 0 ? (
-            filteredPosts.map((post, index) => (
+            filteredPosts.map((post) => (
               <Link href={`/post/${post.id}`} key={post.id}>
                 <div className="bg-white/30 backdrop-blur-md shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
                   <img
@@ -162,7 +164,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Pagination */}
       <div className="flex justify-center items-center gap-4 pb-10">
         <button
           onClick={() => {
@@ -189,7 +190,6 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Add Post/Login Button */}
       <div className="container mx-auto max-w-6xl px-4 pb-12 flex justify-center">
         {isLoggedIn() ? (
           <Link
@@ -210,3 +210,4 @@ export default function Home() {
     </div>
   );
 }
+
